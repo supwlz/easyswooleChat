@@ -1,2 +1,2 @@
 # easyswooleChat
-联系easyswoole，作在线聊天功能
+easyswoole练习，做在线聊天功能
