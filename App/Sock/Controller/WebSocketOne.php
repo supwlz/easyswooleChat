@@ -35,7 +35,7 @@ class WebSocketOne extends BaseController
         $data = array(
             'fd'=>$fd,
             'detail'=>ServerManager::getInstance()->getServer()->connection_info($fd)
-        );var_dump($data);
+        );
         $this->success('success',$data);
 //        $this->response()->write('your fd is '.$fd.' and detail info is '.json_encode(ServerManager::getInstance()->getServer()->connection_info($fd)));
     }
