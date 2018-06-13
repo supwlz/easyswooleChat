@@ -9,13 +9,21 @@
 namespace App\Sock\Controller;
 
 
+use EasySwoole\Core\Component\Spl\SplStream;
+use EasySwoole\Core\Socket\Common\CommandBean;
 use EasySwoole\Core\Socket\Response;
 use EasySwoole\Core\Socket\AbstractInterface\WebSocketController;
 use EasySwoole\Core\Swoole\ServerManager;
 use EasySwoole\Core\Swoole\Task\TaskManager;
 
-class Web extends WebSocketController
+class WebSocket extends WebSocketController
 {
+
+
+    function controllerNotFound()
+    {
+        $this->response()->write("controller  not found");
+    }
     function actionNotFound(?string $actionName)
     {
         $this->response()->write("action call {$actionName} not found");
@@ -23,7 +31,7 @@ class Web extends WebSocketController
 
     function hello()
     {
-        $this->response()->write('call hello with arg:'.$this->request()->getArg('content'));
+        $this->response()->write('call hello with arg:'.$this->request()->getArg('data'));
 
     }
 

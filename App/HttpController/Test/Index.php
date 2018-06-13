@@ -8,9 +8,9 @@
 
 namespace App\HttpController\Test;
 
-
-use App\Common\ViewController;
-class Index extends ViewController
+use EasySwoole\Core\Swoole\ServerManager;
+use App\Common\BaseController;
+class Index extends BaseController
 {
 
     public function index()
@@ -22,9 +22,20 @@ class Index extends ViewController
         new A();
        $this->success('ok');
     }
-    public function view(){
-        // Think-Template
-        $this->fetch('index');      # 对应模板: Views/index.html
 
+    /*
+     * 请调用who，获取fd
+     * http://ip:9501/push/index.html?fd=xxxx
+     */
+    function push()
+    {
+        $fd = intval($this->request()->getRequestParam('fd'));
+        $info = ServerManager::getInstance()->getServer()->connection_info($fd);
+        if(is_array($info)){
+            ServerManager::getInstance()->getServer()->push($fd,'push in http at '.time());
+        }else{
+            $this->response()->write("fd {$fd} not exist");
+        }
     }
+
 }

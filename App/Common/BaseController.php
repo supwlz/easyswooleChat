@@ -7,9 +7,8 @@
  */
 
 namespace App\Common;
-use EasySwoole\Core\Http\AbstractInterface\Controller;
-
-class BaseController extends  Controller
+use EasySwoole\Core\Socket\AbstractInterface\WebSocketController;
+class BaseController extends  WebSocketController
 {
     const BOOLEN_SUCCESS=1;
     const BOOLEN_ERROR=0;
