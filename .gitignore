@@ -1,0 +1,6 @@
+.git
+vendor
+.idea/
+Log/
+vendor/
+easyswoole.install
