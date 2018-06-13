@@ -1,4 +1,4 @@
-[2018-06-11 13:44:11 *9462.2]	ERROR	zm_deactivate_swoole (ERROR 503): Fatal error: Cannot declare class ExceptionHandler, because the name is already in use in /home/vagrant/code/swoole/easyswooleChat/App/ExceptionHandler.php on line 13.
+ffsdfs[2018-06-11 13:44:11 *9462.2]	ERROR	zm_deactivate_swoole (ERROR 503): Fatal error: Cannot declare class ExceptionHandler, because the name is already in use in /home/vagrant/code/swoole/easyswooleChat/App/ExceptionHandler.php on line 13.
 [2018-06-11 13:44:11 $9450.0]	WARNING	swManager_check_exit_status: worker#2 abnormal exit, status=255, signal=0
 [2018-06-11 14:15:53 *9737.2]	ERROR	zm_deactivate_swoole (ERROR 503): Fatal error: Uncaught ArgumentCountError: Too few arguments to function App\Common\Functions::error(), 1 passed in /home/vagrant/code/swoole/easyswooleChat/App/ExceptionHandler.php on line 18 and exactly 4 expected in /home/vagrant/code/swoole/easyswooleChat/App/Common/Functions.php:36
 Stack trace:
