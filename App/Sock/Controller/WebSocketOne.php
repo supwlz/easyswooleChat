@@ -10,12 +10,11 @@ namespace App\Sock\Controller;
 
 
 use EasySwoole\Core\Socket\Response;
-use EasySwoole\Core\Socket\AbstractInterface\WebSocketController;
+use App\Common\WebsocketBase;
 use EasySwoole\Core\Swoole\ServerManager;
 use EasySwoole\Core\Swoole\Task\TaskManager;
-use App\Common\BaseController;
 
-class WebSocketOne extends BaseController
+class WebSocketOne extends WebsocketBase
 {
 
     function actionNotFound(?string $actionName)
@@ -31,14 +30,15 @@ class WebSocketOne extends BaseController
     }
 
     public function who(){
-        $fd = $this->client()->getFd();
-        $data = array(
-            'fd'=>$fd,
-            'detail'=>ServerManager::getInstance()->getServer()->connection_info($fd)
-        );
+    $fd = $this->client()->getFd();
+    $data = array(
+        'fd'=>$fd,
+        'detail'=>ServerManager::getInstance()->getServer()->connection_info($fd)
+    );        var_dump('websocketone');
+
         $this->success('success',$data);
 //        $this->response()->write('your fd is '.$fd.' and detail info is '.json_encode(ServerManager::getInstance()->getServer()->connection_info($fd)));
-    }
+}
 
     function delay()
     {

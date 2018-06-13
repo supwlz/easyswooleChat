@@ -8,15 +8,12 @@
 
 namespace App\Sock\Controller;
 
-
-use EasySwoole\Core\Component\Spl\SplStream;
-use EasySwoole\Core\Socket\Common\CommandBean;
 use EasySwoole\Core\Socket\Response;
-use EasySwoole\Core\Socket\AbstractInterface\WebSocketController;
 use EasySwoole\Core\Swoole\ServerManager;
 use EasySwoole\Core\Swoole\Task\TaskManager;
+use App\Common\WebsocketBase;
 
-class WebSocket extends WebSocketController
+class WebSocket extends WebsocketBase
 {
 
 
@@ -37,7 +34,12 @@ class WebSocket extends WebSocketController
 
     public function who(){
         $fd = $this->client()->getFd();
-        $this->response()->write('your fd is '.$fd.' and detail info is '.json_encode(ServerManager::getInstance()->getServer()->connection_info($fd)));
+        $data = array(
+            'fd'=>$fd,
+            'detail'=>ServerManager::getInstance()->getServer()->connection_info($fd)
+        );
+        var_dump('websocket');
+        $this->success('success',$data);
     }
 
     function delay()

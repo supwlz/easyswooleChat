@@ -7,11 +7,15 @@
  */
 
 namespace App\HttpController\Test;
-use App\Common\ViewController;
+use App\Common\HttpBase;
 
-class Html extends  ViewController
+class Html extends  HttpBase
 {
 
+    public function index()
+    {
+        // TODO: Implement index() method.
+    }
     public function websocket(){
         $this->fetch('test/html/websocket');
     }

@@ -1,28 +1,19 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: supwl
- * Date: 2018/6/11
- * Time: 23:03
- */
 
 namespace App\Common;
+
 use EasySwoole\Config;
 use EasySwoole\Core\Http\AbstractInterface\Controller;
 use EasySwoole\Core\Http\Request;
 use EasySwoole\Core\Http\Response;
 use think\Template;
-
-/**
-* 视图控制器
-* Class ViewController
- * @author  : evalor <master@evalor.cn>
- * @package App
-*/
-abstract class ViewController extends BaseController
+use EasySwoole\Core\Http\Message\Status;
+abstract class HttpBase extends Controller
 {
     protected $view;
 
+    const MSG_CODE_SUCCESS='0000';
+    const MSG_CODE_ERROR='1000';
     /**
      * 初始化模板引擎
      * ViewController constructor.
@@ -42,6 +33,7 @@ abstract class ViewController extends BaseController
         parent::__construct($actionName, $request, $response);
     }
 
+
     /**
      * 输出模板到页面
      * @param  string|null $template 模板文件
@@ -55,5 +47,19 @@ abstract class ViewController extends BaseController
         $this->view->fetch($template, $vars, $config);
         $content = ob_get_clean();
         $this->response()->write($content);
+    }
+    public  function success($msg,$data=[],$msg_code=self::MSG_CODE_SUCCESS,$http_code=Status::CODE_OK){
+        $result = array(
+            'msg_code'=>$msg_code,
+            'data'=>$data
+        );
+        return $this->writeJson($http_code ,$result ,$msg);
+    }
+    public  function error($msg,$data=[],$msg_code=self::MSG_CODE_ERROR,$http_code=Status::CODE_NOT_FOUND){
+        $result = array(
+            'msg_code'=>$msg_code,
+            'data'=>$data
+        );
+        return $this->writeJson($http_code ,$result ,$msg);
     }
 }

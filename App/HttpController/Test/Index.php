@@ -9,8 +9,8 @@
 namespace App\HttpController\Test;
 
 use EasySwoole\Core\Swoole\ServerManager;
-use App\Common\BaseController;
-class Index extends BaseController
+use App\Common\HttpBase;
+class Index extends HttpBase
 {
 
     public function index()
@@ -20,7 +20,7 @@ class Index extends BaseController
     }
     public function exception(){
         new A();
-       $this->success('ok');
+       $this->writeJson('ok');
     }
 
     /*
