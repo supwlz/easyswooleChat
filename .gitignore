@@ -4,3 +4,7 @@ vendor
 Log/
 vendor/
 easyswoole.install
+Temp/
+composer.lock
+easyswoole
+
