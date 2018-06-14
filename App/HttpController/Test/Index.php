@@ -10,8 +10,16 @@ namespace App\HttpController\Test;
 
 use EasySwoole\Core\Swoole\ServerManager;
 use App\Common\HttpBase;
+use App\Model\User\User as UserModel;
+use App\Utility\SysConst;
+use EasySwoole\Core\Http\Message\Status;
+
 class Index extends HttpBase
 {
+
+    public function test(){
+        $this->error('success',UserModel::all());
+    }
 
     public function index()
     {
@@ -23,6 +31,9 @@ class Index extends HttpBase
        $this->writeJson('ok');
     }
 
+    public function swoole(){
+        $this->success(phpversion('swoole'));
+    }
     /*
      * 请调用who，获取fd
      * http://ip:9501/push/index.html?fd=xxxx
@@ -37,5 +48,6 @@ class Index extends HttpBase
             $this->response()->write("fd {$fd} not exist");
         }
     }
+
 
 }

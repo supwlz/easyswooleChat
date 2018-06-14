@@ -17,6 +17,7 @@ use EasySwoole\Core\Component\Di;
 use EasySwoole\Core\Component\SysConst;
 use \EasySwoole\Core\Swoole\EventHelper;
 use App\Sock\Parser\WebSock;
+use think\Db;
 Class EasySwooleEvent implements EventInterface {
 
     public static function frameInitialize(): void
@@ -24,6 +25,10 @@ Class EasySwooleEvent implements EventInterface {
         // TODO: Implement frameInitialize() method.
         date_default_timezone_set('Asia/Shanghai');
         Di::getInstance()->set( SysConst::HTTP_EXCEPTION_HANDLER, \App\ExceptionHandler::class );
+        // 获得数据库配置
+        $dbConf = Config::getInstance()->getConf('database');
+        // 全局初始化
+        Db::setConfig($dbConf);
     }
 
     public static function mainServerCreate(ServerManager $server,EventRegister $register): void

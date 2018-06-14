@@ -8,12 +8,13 @@ use EasySwoole\Core\Http\Request;
 use EasySwoole\Core\Http\Response;
 use think\Template;
 use EasySwoole\Core\Http\Message\Status;
+use App\Utility\SysConst;
+
 abstract class HttpBase extends Controller
 {
     protected $view;
 
-    const MSG_CODE_SUCCESS='0000';
-    const MSG_CODE_ERROR='1000';
+
     /**
      * 初始化模板引擎
      * ViewController constructor.
@@ -33,6 +34,10 @@ abstract class HttpBase extends Controller
         parent::__construct($actionName, $request, $response);
     }
 
+    protected function actionNotFound($action): void
+    {
+        $this->error('action '.$action.' not found',[],SysConst::MSG_CODE_ERROR,Status::CODE_NOT_FOUND);
+    }
 
     /**
      * 输出模板到页面
@@ -48,18 +53,29 @@ abstract class HttpBase extends Controller
         $content = ob_get_clean();
         $this->response()->write($content);
     }
-    public  function success($msg,$data=[],$msg_code=self::MSG_CODE_SUCCESS,$http_code=Status::CODE_OK){
-        $result = array(
-            'msg_code'=>$msg_code,
-            'data'=>$data
-        );
-        return $this->writeJson($http_code ,$result ,$msg);
+    public  function success($msg,$data=[],$msg_code=SysConst::MSG_CODE_SUCCESS,$http_code=Status::CODE_OK){
+        return $this->jsonReturn(1,$msg,$data ,$msg_code,$http_code);
     }
-    public  function error($msg,$data=[],$msg_code=self::MSG_CODE_ERROR,$http_code=Status::CODE_NOT_FOUND){
-        $result = array(
-            'msg_code'=>$msg_code,
-            'data'=>$data
-        );
-        return $this->writeJson($http_code ,$result ,$msg);
+    public  function error($msg,$data=[],$msg_code=SysConst::MSG_CODE_ERROR,$http_code= Status::CODE_NOT_FOUND){
+        return $this->jsonReturn(0,$msg,$data ,$msg_code,$http_code);
+    }
+
+    private function jsonReturn($boolen,$msg,$data ,$msg_code,$http_code)
+    {
+        if(!$this->response()->isEndResponse()){
+            $data = Array(
+                'boolen'=>$boolen,
+                "msg"=>$msg,
+                "msg_code"=>$msg_code,
+                "data"=>$data,
+            );
+            $this->response()->write(json_encode($data,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES));
+            $this->response()->withHeader('Content-type','application/json;charset=utf-8');
+            $this->response()->withStatus($http_code);
+            return true;
+        }else{
+            trigger_error("response has end");
+            return false;
+        }
     }
 }

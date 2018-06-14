@@ -38,5 +38,26 @@ return [
         'nodeTimeout'=>10,
         'nodeName'=>'easySwoole',
         'nodeId'=>null
+    ],
+    'database' => [
+        // 数据库类型
+        'type'            => 'mysql',
+        // 服务器地址
+        'hostname'        => '192.168.10.10',
+        // 数据库名
+        'database'        => 'learn',
+        // 用户名
+        'username'        => 'homestead',
+        // 密码
+        'password'        => 'secret',
+        // 端口
+        'hostport'        => '3306',
+        // 数据库表前缀
+        'prefix'          => 'ew_',
+        // 是否需要断线重连
+        'break_reconnect' => true,
+    ],
+    'salt'=>[
+        'user_pwd'=>'fjhQRKZF==+!'
     ]
 ];
